@@ -3,7 +3,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import Navbar from "./Navbar";
 import { handleSaveQuestionAnswer } from "../actions/shared";
-
+import { Redirect } from "react-router-dom";
 class QuestionResults extends Component {
   state = {
     selectedOption: "",
@@ -25,6 +25,9 @@ class QuestionResults extends Component {
 
   render() {
     const { poll, users, authedUser, question_id} = this.props;
+    if (poll === undefined) {
+      return <Redirect to="/notfound" />;
+    }
     const optionOne = poll.optionOne.text;
     const optionTwo = poll.optionTwo.text;
     const current_user=users[authedUser];
